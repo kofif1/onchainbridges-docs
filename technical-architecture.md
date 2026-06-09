@@ -45,25 +45,13 @@ We already integrate one building block from the SCF integration list. **Freight
 
 ---
 
-## 3. Integration plan (grant-funded)
+## 3. Integration plan (grant-funded): Blend v2
 
-We built our own Soroban DeFi primitives (the Polaris vault and the YTMarket) to prove the full RWA lifecycle on Stellar. The purpose of this grant is to replace and extend those placeholders with **Stellar-native building blocks**, so compliant RWA value flows through the real Stellar DeFi ecosystem rather than through our own isolated contracts.
+We built our own Soroban DeFi primitives (the Polaris vault and the YTMarket) to prove the full RWA lifecycle on Stellar. The purpose of this grant is to move the lending side of that lifecycle onto a **Stellar-native building block: Blend v2.**
 
-### Primary integration: Blend v2 (lending)
+Plan: list sMBT as eligible collateral in a Blend v2 lending pool (or stand up a dedicated pool), so RWA holders borrow against compliant real-world-asset collateral using Stellar's leading lending protocol instead of our standalone Polaris vault. Our allowlist compliance gates which wallets can supply or borrow, so the pool stays compliant at the asset level. Most of the requested budget goes to this integration; estimated effort aligns with the list's "1+ month."
 
-Plan: list sMBT as eligible collateral in a Blend v2 lending pool (or stand up a dedicated pool), so RWA holders borrow against compliant real-world-asset collateral using Stellar's leading lending protocol instead of our standalone Polaris vault. Our allowlist compliance gates which wallets can supply or borrow, so the pool stays compliant at the asset level. This is the headline integration and the bulk of the requested budget. Estimated effort aligns with the list's "1+ month."
-
-### Liquidity and swap routing: Soroswap and Aquarius
-
-Plan: route swaps for sMBT, sUSDC, and the Yield Token through Soroswap's routing API and Aquarius liquidity aggregation, so the YT secondary market and fee or collateral conversions draw on aggregated Stellar liquidity rather than our fixed-price YTMarket alone. Soroswap provides the swap UX and routing; Aquarius adds liquidity depth and market data.
-
-### Yield infrastructure: DeFindex
-
-Plan: expose the RWA yield produced by our yield-stripping layer through DeFindex, so Stellar wallets and DeFi apps can access compliant RWA-backed yield strategies through standard Stellar yield infrastructure.
-
-### Phasing
-
-Blend v2 is the primary, funded first. Soroswap and Aquarius (liquidity) and DeFindex (yield) follow as the RWA stack moves from our own primitives onto Stellar-native rails. Scope and budget are set so the work is realistic rather than spread thin.
+This is a deliberately focused, realistic scope: one production-grade integration with the leading Stellar lending protocol, on top of the live Freighter anchor. Other Stellar DeFi building blocks (Soroswap and Aquarius for liquidity and swap routing, DeFindex for yield) are natural later phases once the Blend integration is in production; they are not part of this request.
 
 ---
 
@@ -71,7 +59,7 @@ Blend v2 is the primary, funded first. Soroswap and Aquarius (liquidity) and DeF
 
 1. A real-world-asset token issued on Polygon (MBT) bridges to Stellar as sMBT via Chainlink CRE, compliance enforced on arrival.
 2. On Stellar, sMBT is a compliance-gated SEP-41 token; every transfer passes an allowlist and pause check.
-3. Holders borrow against sMBT (Blend v2), swap sMBT, sUSDC, and YT through aggregated liquidity (Soroswap, Aquarius), strip and trade yield, and access RWA yield strategies (DeFindex), all gated by the same compliance.
+3. Holders borrow against sMBT through Blend v2 lending pools, and strip and trade the asset's yield, all gated by the same compliance.
 4. Users connect and sign through Freighter.
 
 The result for Stellar: compliant real-world assets, and the users and liquidity that follow them, are drawn into the Stellar DeFi ecosystem through native building blocks, with compliance enforced on every transfer, and without Stellar or its DeFi protocols having to build RWA compliance themselves.
