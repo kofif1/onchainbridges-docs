@@ -1,0 +1,213 @@
+No files changed, compilation skipped
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/RWATokenCCT.sol:231:13
+    │
+231 │         if (block.timestamp - updatedAt > maxStaleness) {
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/bridge/CrossChainBridge.sol:170:37
+    │
+170 │             buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+    │                                     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/BridgeFeePool.sol:186:13
+    │
+186 │         if (block.timestamp < unlockTime) revert RefundTooEarly(block.timestamp, unlockTime);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/OperatorRegistry.sol:124:13
+    │
+124 │         if (block.timestamp < op.cooldownEnd) revert CooldownNotElapsed(block.timestamp, op.cooldownEnd);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/TLPTStaking.sol:221:13
+    │
+221 │         if (block.timestamp < s.lockedUntil) revert LockNotExpired(s.lockedUntil);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/aa/TLPTPaymasterV2.sol:576:21
+    │
+576 │                 if (block.timestamp < nextAllowed) {
+    │                     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/RWATokenCCT.sol:236:42
+    │
+236 │         if (reserves <= 0 || newSupply > uint256(reserves)) {
+    │                                          ━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/TLPTStaking.sol:258:13
+    │
+258 │         if (block.timestamp < withdrawableAt) revert CooldownActive(withdrawableAt);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/aa/TLPTPaymasterV2.sol:298:25
+    │
+298 │                 amount: uint128(linkBudget),
+    │                         ━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/tlpt/TLPTFaucet.sol:83:17
+   │
+83 │             if (block.timestamp < nextAt) revert CooldownActive(nextAt);
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/TLPTFaucet.sol:111:17
+    │
+111 │             if (block.timestamp < nextAt) revert CooldownActive(nextAt);
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/aa/TLPTPaymasterV2.sol:368:53
+    │
+368 │         pendingLink[msg.sender].amount = a.amount - uint128(amount);
+    │                                                     ━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/tlpt/TLPTFaucet.sol:137:16
+    │
+137 │         return block.timestamp >= last + cooldown;
+    │                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/tlpt/TLPTStaking.sol:157:48
+    │
+157 │             newLock = d == 0 ? s.lockedUntil : uint40(block.timestamp + d);
+    │                                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint40' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/tlpt/TLPTStaking.sol:197:26
+    │
+197 │         uint40 newLock = uint40(block.timestamp + newDuration);
+    │                          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint40' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/aa/TLPTPaymasterV2.sol:468:20
+    │
+468 │             return uint256(answer);
+    │                    ━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/tlpt/TLPTStaking.sol:228:33
+    │
+228 │         uint40 withdrawableAt = uint40(block.timestamp + UNBONDING_COOLDOWN);
+    │                                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint40' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/tlpt/TLPTStaking.sol:257:49
+    │
+257 │         uint40 withdrawableAt = s.unstakingAt + uint40(UNBONDING_COOLDOWN);
+    │                                                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint40' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ src/tlpt/TLPTStaking.sol:303:20
+    │
+303 │         return u + uint40(UNBONDING_COOLDOWN);
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint40' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+

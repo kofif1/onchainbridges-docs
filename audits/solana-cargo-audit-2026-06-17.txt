@@ -1,0 +1,31 @@
+=== cargo audit (RustSec dependency advisories) ===
+Date:      2024-10-07
+ID:        RUSTSEC-2024-0436
+URL:       https://rustsec.org/advisories/RUSTSEC-2024-0436
+
+Crate:     atty
+Version:   0.2.14
+Warning:   unsound
+Title:     Potential unaligned read
+Date:      2021-07-04
+ID:        RUSTSEC-2021-0145
+URL:       https://rustsec.org/advisories/RUSTSEC-2021-0145
+
+Crate:     borsh
+Version:   0.9.3
+Warning:   unsound
+Title:     Parsing borsh messages with ZST which are not-copy/clone is unsound
+Date:      2023-04-12
+ID:        RUSTSEC-2023-0033
+URL:       https://rustsec.org/advisories/RUSTSEC-2023-0033
+
+Crate:     rand
+Version:   0.7.3
+Warning:   unsound
+Title:     Rand is unsound with a custom logger using `rand::rng()`
+Date:      2026-04-09
+ID:        RUSTSEC-2026-0097
+URL:       https://rustsec.org/advisories/RUSTSEC-2026-0097
+
+error: 2 vulnerabilities found!
+warning: 8 allowed warnings found
