@@ -32,7 +32,7 @@ addresses are in the [Contract Reference](06-contracts.md); the multi-chain desi
 [Architecture](architecture.md).
 
 - **EVM testnets:** Ethereum (Sepolia), Polygon (Amoy), Soneium (Minato), Plume, Sonic, Astar (Shibuya)
-- **Non-EVM:** Solana (Devnet); Stellar / Soroban , [Stellar integration deep-dive](README.md)
+- **Non-EVM:** Solana (Devnet), Stellar / Soroban
 - **In progress:** Stacks (Bitcoin L2) , bridge working, integration ongoing
 
 Compliance (allowlist + pause enforced on every transfer) and the cross-chain bridge are
