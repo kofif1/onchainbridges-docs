@@ -25,8 +25,18 @@ and Proof of Reserve). Live testnet dApp: https://rwa-testnet.onchainbridges.com
 - [Verification and Audit Ledger](CONTRACT-VERIFICATION-AUDIT-LEDGER.md) , every contract, every
   chain, with block-explorer links.
 
-## Chain integrations
-- [Stellar (Soroban) integration](README.md)
+## Networks
+
+The protocol is deployed natively across multiple public testnets. Full per-chain contract
+addresses are in the [Contract Reference](06-contracts.md); the multi-chain design is in
+[Architecture](architecture.md).
+
+- **EVM testnets:** Ethereum (Sepolia), Polygon (Amoy), Soneium (Minato), Plume, Sonic, Astar (Shibuya)
+- **Non-EVM:** Solana (Devnet); Stellar / Soroban , [Stellar integration deep-dive](README.md)
+- **In progress:** Stacks (Bitcoin L2) , bridge working, integration ongoing
+
+Compliance (allowlist + pause enforced on every transfer) and the cross-chain bridge are
+implemented natively on each chain, EVM and non-EVM alike.
 
 ---
 _Status: pre-mainnet. Deployed and live on public testnets; a formal audit precedes mainnet._
