@@ -1,3 +1,7 @@
+---
+title: "Stellar Integration"
+---
+
 # Onchain Bridges - Stellar Integration
 
 **Status:** the Soroban stack described here is deployed and live on Stellar testnet, exercised through the public testnet dApp at https://rwa-testnet.onchainbridges.com. It is demo-grade and not yet audited. Every Stellar contract id below is verifiable at `https://stellar.expert/explorer/testnet/contract/<ID>`.
