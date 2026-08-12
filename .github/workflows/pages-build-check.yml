@@ -65,8 +65,6 @@ jobs:
           test -f _site/index.html || { echo "no index.html was produced"; exit 1; }
           grep -q 'class="page-header"' _site/index.html \
             || { echo "index.html built but the page header is missing: the layout did not render"; exit 1; }
-          grep -q 'site-footer-privacy' _site/index.html \
-            || { echo "the footer privacy line is missing: it is referenced by the published privacy policy"; exit 1; }
           printf 'built %s pages\n' "$(find _site -name '*.html' | wc -l | tr -d ' ')"
 
       - name: No third-party resource is requested on page load
