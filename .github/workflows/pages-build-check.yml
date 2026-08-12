@@ -1,16 +1,22 @@
-# Build the docs site the way GitHub Pages builds it, then assert two things
-# about the OUTPUT rather than about the source.
+# Build the docs site the way it is published, then assert two things about the
+# OUTPUT rather than about the source.
 #
-# Why this exists at all: nothing validated that this site builds. A bad Liquid
-# tag in a layout does not fail loudly, it just stops publishing, and the docs
-# site is investor-facing. A build that only runs after merge tells you too late.
+# Why this exists: nothing validated that this site builds. A bad Liquid tag in
+# a layout does not fail loudly, it just stops publishing, and this site is
+# investor-facing. A build that only runs after merge tells you too late.
 #
-# The second assertion is the one that matters over time. Our privacy policy
-# describes what these pages request from third parties. That is an absolute
-# claim, and an absolute claim needs an instrument that keeps it true, not a
-# person remembering to re-check it. A theme upgrade that quietly restores the
-# Google Fonts links now fails CI instead of silently making a published legal
-# statement false.
+# The second assertion is the one that matters over time. onchainbridges.com's
+# privacy policy, clause 1.2 (d), and this site's own footer both state that
+# these pages request nothing from a third party when loaded. That is an
+# absolute claim in published legal text, and an absolute claim needs an
+# instrument that keeps it true rather than a person remembering to re-check it.
+#
+# The first version of this check was a grep for nine known hosts. It passed
+# while the site was in fact loading Google Fonts through an @import inside the
+# theme's compiled stylesheet, because the grep only looked at markup. The
+# checker now parses stylesheets and inline CSS as well as tags, asserts the
+# general property instead of a denylist, and self-tests against fixtures that
+# are supposed to fail. A check that cannot fail is not a check.
 name: pages build check
 
 on:
@@ -32,9 +38,12 @@ jobs:
         with:
           ruby-version: '3.3'
 
-      # The Gemfile is written here rather than committed. The classic Pages
-      # builder ignores a repo Gemfile, so a committed one would only be a
-      # second source of truth that drifts.
+      # The gate proves it can still fail BEFORE it is trusted to pass.
+      - name: Self-test the third-party checker
+        run: python3 scripts/check-no-third-party.py --self-test
+
+      # The Gemfile is written here rather than committed, so there is only one
+      # source of truth for what builds the site.
       - name: Install the github-pages gem
         run: |
           printf "source 'https://rubygems.org'\ngem 'github-pages', group: :jekyll_plugins\n" > Gemfile
@@ -46,30 +55,19 @@ jobs:
           PAGES_REPO_NWO: ${{ github.repository }}
         run: bundle exec jekyll build --destination _site --trace
 
+      # Same step the publishing workflow runs, so this check reflects what is
+      # actually deployed rather than an intermediate state.
+      - name: Strip off-origin CSS imports
+        run: python3 scripts/strip-remote-css-imports.py _site
+
       - name: The site actually rendered
         run: |
           test -f _site/index.html || { echo "no index.html was produced"; exit 1; }
           grep -q 'class="page-header"' _site/index.html \
             || { echo "index.html built but the page header is missing: the layout did not render"; exit 1; }
-          grep -q 'class="main-content"' _site/index.html \
-            || { echo "index.html built but the main content wrapper is missing"; exit 1; }
+          grep -q 'site-footer-privacy' _site/index.html \
+            || { echo "the footer privacy line is missing: it is referenced by the published privacy policy"; exit 1; }
           printf 'built %s pages\n' "$(find _site -name '*.html' | wc -l | tr -d ' ')"
 
-      - name: No third-party requests fire on page load
-        run: |
-          # Hosts that would receive a visitor's IP and user agent without the
-          # visitor asking. Plain links to github.com are fine: they only fire
-          # if someone clicks. Attribute-bearing references are not.
-          hits=$(grep -rEho \
-            '(src|href)="https?://(fonts\.googleapis\.com|fonts\.gstatic\.com|ajax\.googleapis\.com|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com|use\.fontawesome\.com|www\.google-analytics\.com|www\.googletagmanager\.com)[^"]*"' \
-            _site --include='*.html' --include='*.css' || true)
-          if [ -n "$hits" ]; then
-            echo "Third-party resources are loaded by the built site:"
-            echo "$hits" | sort -u | sed 's/^/  /'
-            echo ""
-            echo "Our privacy policy describes what these pages request from third"
-            echo "parties. Either remove the reference or tell the legal review"
-            echo "channel that the policy text needs to change. Do not do neither."
-            exit 1
-          fi
-          echo "no third-party resource references in the built output"
+      - name: No third-party resource is requested on page load
+        run: python3 scripts/check-no-third-party.py _site

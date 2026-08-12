@@ -1,0 +1,100 @@
+# Publish the docs site from Actions instead of straight from the branch.
+#
+# THIS WORKFLOW DOES NOTHING UNTIL A REPOSITORY SETTING IS CHANGED.
+# Settings -> Pages -> Build and deployment -> Source must be "GitHub Actions".
+# While the source is still "Deploy from a branch", GitHub keeps building the
+# site itself and this file is inert. That setting change is deliberately left
+# to the repository owner; it is not something this PR can or should do.
+#
+# Why the change is needed at all.
+#
+# The site loads Google Fonts. Not from anything in this repository: the
+# jekyll-theme-cayman gem puts an @import at the top of its compiled stylesheet,
+#
+#     @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
+#
+# and a CSS @import fetches when the stylesheet is parsed. Every visitor's IP
+# address and user agent goes to Google before they have done anything. Removing
+# the two <link> tags from the head earlier removed the visible half of this and
+# left the half that was actually working.
+#
+# We cannot edit that rule, because it lives inside the gem. The options were to
+# reproduce the entire theme stylesheet in this repo, or to remove the rule from
+# the build output. The second is smaller, keeps the theme as the theme, and
+# leaves nothing to drift. Removing it needs a step between "build" and
+# "publish", and the branch-deployed Pages builder has no such step. Hence this.
+#
+# onchainbridges.com/privacy.html clause 1.2 (d) and this site's footer both
+# state that these pages request nothing from a third party on load. Until this
+# is deployed, that statement is not true.
+name: deploy pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two publishes race. Do not cancel one in flight: a half-finished
+# deploy of a site making legal claims is worse than a slow one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install the github-pages gem
+        run: |
+          printf "source 'https://rubygems.org'\ngem 'github-pages', group: :jekyll_plugins\n" > Gemfile
+          bundle install --quiet
+
+      - name: Build
+        env:
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAGES_REPO_NWO: ${{ github.repository }}
+        run: |
+          bundle exec jekyll build \
+            --destination _site \
+            --baseurl "${{ steps.pages.outputs.base_path }}" \
+            --trace
+
+      - name: Strip off-origin CSS imports
+        run: python3 scripts/strip-remote-css-imports.py _site
+
+      # The gate runs BEFORE upload, so a build that would break the published
+      # privacy claim cannot be published. This is the whole point of moving the
+      # deployment here; a check that runs after publishing is a report, not a gate.
+      - name: No third-party resource is requested on page load
+        run: |
+          python3 scripts/check-no-third-party.py --self-test
+          python3 scripts/check-no-third-party.py _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
