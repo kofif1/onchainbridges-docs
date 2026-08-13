@@ -65,6 +65,10 @@ jobs:
           test -f _site/index.html || { echo "no index.html was produced"; exit 1; }
           grep -q 'class="page-header"' _site/index.html \
             || { echo "index.html built but the page header is missing: the layout did not render"; exit 1; }
+          test -f _site/assets/fonts/open-sans-latin.woff2 \
+            || { echo "the self-hosted Open Sans woff2 is missing: the page would silently fall back"; exit 1; }
+          grep -q 'assets/css/fonts.css' _site/index.html \
+            || { echo "fonts.css is not linked: the self-hosted font would not be used"; exit 1; }
           printf 'built %s pages\n' "$(find _site -name '*.html' | wc -l | tr -d ' ')"
 
       - name: No third-party resource is requested on page load
