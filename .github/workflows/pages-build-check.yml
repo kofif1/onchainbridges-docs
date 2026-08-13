@@ -69,7 +69,22 @@ jobs:
             || { echo "the self-hosted Open Sans woff2 is missing: the page would silently fall back"; exit 1; }
           grep -q 'assets/css/fonts.css' _site/index.html \
             || { echo "fonts.css is not linked: the self-hosted font would not be used"; exit 1; }
+          grep -q 'site-footer-privacy' _site/index.html \
+            || { echo "the footer privacy line is missing: the published privacy policy refers to it"; exit 1; }
           printf 'built %s pages\n' "$(find _site -name '*.html' | wc -l | tr -d ' ')"
 
-      - name: No third-party resource is requested on page load
+      # WHICH QUESTION THIS ANSWERS, stated because getting it wrong is what
+      # caused the incident this file exists for.
+      #
+      # This asserts on the artifact AFTER the strip step, and the strip is part
+      # of the publishing pipeline: pages.yml runs the same build and the same
+      # strip before it uploads. So a pass here describes what would be
+      # published, not merely that the strip works.
+      #
+      # That was NOT true before the Pages source was switched from "deploy from
+      # a branch" to "GitHub Actions". While GitHub built the site itself, this
+      # job stripped a throwaway copy and went green while the served site kept
+      # the @import. If the Pages source is ever switched back, this job stops
+      # describing the live site and starts flattering it.
+      - name: No third-party resource in the artifact this build would publish
         run: python3 scripts/check-no-third-party.py _site
