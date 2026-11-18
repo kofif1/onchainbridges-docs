@@ -105,7 +105,7 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 
 | Contract | Address |
 |---|---|
-| WrappedMBT v2 (compliance-gated) | [`0x670c3a58435cc13e9edA059F4093F31CedEEF7F3`](https://testnet.sonicscan.org/address/0x670c3a58435cc13e9edA059F4093F31CedEEF7F3) |
+| WrappedMBT v3 (compliance-gated) | [`0x0259ae85183975f83297847e144bC4E1eCf908Bc`](https://testnet.sonicscan.org/address/0x0259ae85183975f83297847e144bC4E1eCf908Bc) |
 | CREBridgeConsumer v2 | [`0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6`](https://testnet.sonicscan.org/address/0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6) |
 | Nova Finance LendingVault | [`0x49f1aa7C252183E79D4944c54698a335Ed65C150`](https://testnet.sonicscan.org/address/0x49f1aa7C252183E79D4944c54698a335Ed65C150) |
 
