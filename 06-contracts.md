@@ -8,7 +8,12 @@ title: "Contract Reference"
 
 Live testnet addresses across every supported chain. Authoritative source: `webapp/src/config/chains.ts` (this document is a snapshot).
 
-> Last updated and verified: 2026-06-05. §6.1-6.5 (EVM chains) verified against the webapp config files, all addresses match. §6.8 (Solana Devnet): Phase B is complete; C-lite trust-minimized recipient-claim path verified end-to-end on Devnet (2026-05-20), exposed in the dApp as of 2026-06-05 via the V1 C-lite message shape, with the V2 atomic path preserved in code (svmCcip.ts `buildBridgeMessageV2`) for when Chainlink unblocks the offramp heap-OOM. §6.10 (Account Abstraction contracts) added 2026-05-17.
+> **This document is a dated snapshot and carries NO blanket verification.** The addresses below were
+> last reconciled against the webapp config on 2026-06-05 and have NOT been re-verified since;
+> `webapp/src/config/chains.ts` is authoritative and wins wherever the two disagree. A reader
+> integrating against any address here should check it against that file first.
+>
+> §6.8 (Solana Devnet): Phase B is complete; C-lite trust-minimized recipient-claim path verified end-to-end on Devnet (2026-05-20), exposed in the dApp as of 2026-06-05 via the V1 C-lite message shape, with the V2 atomic path preserved in code (svmCcip.ts `buildBridgeMessageV2`) for when Chainlink unblocks the offramp heap-OOM. §6.10 (Account Abstraction contracts) added 2026-05-17.
 >
 > This document is the canonical contract registry. Per CLAUDE.md invariant 5, any contract added, removed, redeployed, or deprecated on any chain is reflected here in the same commit.
 
@@ -74,13 +79,15 @@ LINK token: `0xe74037112db8807B3B4B3895F5790e5bc1866a29`
 
 | Contract | Address |
 |---|---|
-| **WrappedMBT v2** (compliance-gated) | `0x670c3a58435cc13e9edA059F4093F31CedEEF7F3` |
+| **WrappedMBT v3** (compliance-gated) | `0x0259ae85183975f83297847e144bC4E1eCf908Bc` |
 | **CREBridgeConsumer v2** | `0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6` |
 | **KeystoneForwarder** (Chainlink-hosted) | `0x98B8335d29Aca40840Ed8426dA1A0aAa8677d8D1` |
 | **Nova Finance LendingVault v2** (wMBT v2 collateral) | `0x49f1aa7C252183E79D4944c54698a335Ed65C150` |
 | **TestUSDC** (Nova vault liquidity) | `0x43CC10a0bbEb70d8EFCb45714e0e0F4C49500c75` |
 
 WrappedMBT v2 has built-in allowlist + pause (no separate AllowPolicy contract). Admin functions: `allowAddress`, `disallowAddress`, `allowAddresses`, `setPaused`, `setMinter`, `addressAllowed(view)`.
+
+> **wMBT v2 at `0x670c3a58435cc13e9edA059F4093F31CedEEF7F3` is PERMANENTLY PAUSED and must not be used.** Read live 2026-11-18: `paused()` returns true on v2 and false on v3. v3 was deployed and migrated 2026-10-06 and holds the balance.
 
 > v1 wMBT at `0x9139FbB66e770EB3baBCbC7fD59Ef690bCfA7784` is **deprecated** — pre-ACE compliance migration. 14 wMBT v1 tokens are stranded in test wallets; the dApp no longer reads from this contract.
 
