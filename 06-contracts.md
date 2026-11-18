@@ -8,7 +8,7 @@ title: "Contract Reference"
 
 Live testnet addresses across every supported chain. Authoritative source: `webapp/src/config/chains.ts` (this document is a snapshot).
 
-> Last updated and verified: 2026-06-05. §6.1-6.6 (EVM chains + yield) verified against the webapp config files, all addresses match. §6.8 (Solana Devnet): Phase B is complete; C-lite trust-minimized recipient-claim path verified end-to-end on Devnet (2026-05-20), exposed in the dApp as of 2026-06-05 via the V1 C-lite message shape, with the V2 atomic path preserved in code (svmCcip.ts `buildBridgeMessageV2`) for when Chainlink unblocks the offramp heap-OOM. §6.10 (Account Abstraction contracts) added 2026-05-17.
+> Last updated and verified: 2026-06-05. §6.1-6.5 (EVM chains) verified against the webapp config files, all addresses match. §6.8 (Solana Devnet): Phase B is complete; C-lite trust-minimized recipient-claim path verified end-to-end on Devnet (2026-05-20), exposed in the dApp as of 2026-06-05 via the V1 C-lite message shape, with the V2 atomic path preserved in code (svmCcip.ts `buildBridgeMessageV2`) for when Chainlink unblocks the offramp heap-OOM. §6.10 (Account Abstraction contracts) added 2026-05-17.
 >
 > This document is the canonical contract registry. Per CLAUDE.md invariant 5, any contract added, removed, redeployed, or deprecated on any chain is reflected here in the same commit.
 
@@ -78,53 +78,11 @@ LINK token: `0xe74037112db8807B3B4B3895F5790e5bc1866a29`
 | **CREBridgeConsumer v2** | `0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6` |
 | **KeystoneForwarder** (Chainlink-hosted) | `0x98B8335d29Aca40840Ed8426dA1A0aAa8677d8D1` |
 | **Nova Finance LendingVault v2** (wMBT v2 collateral) | `0x49f1aa7C252183E79D4944c54698a335Ed65C150` |
-| **TestUSDC** (Nova vault liquidity + yield currency) | `0x43CC10a0bbEb70d8EFCb45714e0e0F4C49500c75` |
-| **YieldIssuer** | `0x905142640A63B582E954C14e7Ed98a49E165D9Ef` |
-| **YT-MBT token** | `0x02670162368541ae0098C5C6b76B60Ee0DD749Cf` |
-| **YTMarket** | `0xFf586b23d45B4BE1677f19c1589A60321631069e` |
+| **TestUSDC** (Nova vault liquidity) | `0x43CC10a0bbEb70d8EFCb45714e0e0F4C49500c75` |
 
 WrappedMBT v2 has built-in allowlist + pause (no separate AllowPolicy contract). Admin functions: `allowAddress`, `disallowAddress`, `allowAddresses`, `setPaused`, `setMinter`, `addressAllowed(view)`.
 
 > v1 wMBT at `0x9139FbB66e770EB3baBCbC7fD59Ef690bCfA7784` is **deprecated** — pre-ACE compliance migration. 14 wMBT v1 tokens are stranded in test wallets; the dApp no longer reads from this contract.
-
-## 6.6 Yield-stripping deployments (per chain)
-
-YieldIssuer + YT token + YTMarket addresses for each chain that runs the yield product:
-
-### Sepolia
-- YieldIssuer: `0xF18ff2C7CB1B699d92EfDfc91c1D963BC8E97B7D` (2026-06-16 per-period-snapshot redeploy, PR #36)
-- YT-MBT token: `0x206b4FFF5e128e9257dF762cd4872c57e161765A` (compliance-gated; `allowPolicy()` returns the Sepolia AllowPolicy; per-period balance snapshot)
-- YTMarket: `0xa8d5924B4Ee9580E8Cb53b3a6cD22E27Df77AD50` (2026-06-16 redeploy; allowlisted on Sepolia AllowPolicy)
-- TestUSDC: `0x8bd2a0a9f90dc40a3a420c84553d40dd688035df`
-
-> Superseded by the 2026-06-16 snapshot redeploy (do not import): the 2026-06-03 compliance-fix Sepolia stack (YieldIssuer `0x34b8822b...`, YT `0x7f939bc5...`, YTMarket `0xa25cC783...`); and before it, the pre-2026-06-03-fix stack (plain ERC-20 YT, non-KYC wallets could buy through YTMarket; see `docs/design/yt-mbt-compliance-fix.md`): YieldIssuer `0x207bba4c...`, YT `0x4142f0D3...`, YTMarket `0xec6ed8b7...`.
-
-> Old/deprecated Sepolia yield deployments (built on an orphaned MockUSDC, no longer in use): YieldIssuer `0x6c1f0bf4…`, YT `0xeC7F0BbD…`, YTMarket `0x65fb4431…`. Do not import these.
-
-### Amoy
-- YieldIssuer: `0xfd47b73338331fa760D7C96E21A096Dd418ce94D` (2026-06-16 per-period-snapshot redeploy, PR #36)
-- YT-MBT token: `0x4390c38a4DE1e7B9eBa1b4C9501986260Fb890E6` (compliance-gated; `allowPolicy()` returns the Amoy AllowPolicy; per-period balance snapshot)
-- YTMarket: `0xEecD98365C8E47a0E8cEadd89eC464663272ECF1` (2026-06-16 redeploy; allowlisted on Amoy AllowPolicy)
-- USDC: `0xce8c237c6b8bf91df589ea740d4d65cbb75f7ddd`
-
-> Superseded by the 2026-06-16 snapshot redeploy (do not import): the 2026-06-04 compliance-fix Amoy stack (YieldIssuer `0x62BD210F...`, YT `0xC4dE838d...`, YTMarket `0xa701147b...`); and before it, the pre-2026-06-03-fix stack (plain ERC-20 YT): YieldIssuer `0x0fb97310...`, YT `0x42495e16...`, YTMarket `0xf08a2070...`.
-
-### Plume
-- YieldIssuer: `0xc8567316b25e74b5196BcD1F27A4CE1733712F19` (2026-06-16 per-period-snapshot redeploy, PR #36)
-- YT-MBT token: `0x25bFB440D43AA62E3C0904428497f8ed10460a62` (compliance-gated; `allowPolicy()` returns the Plume AllowPolicy; per-period balance snapshot)
-- YTMarket: `0xa9ACC61C20ebE4e49059740641b8d9BCf732295D` (2026-06-16 redeploy; allowlisted on Plume AllowPolicy)
-- USDC: `0x22e34a3a9c54a736f9ffdf15a3c4cdc886ff0da6`
-
-> Superseded by the 2026-06-16 snapshot redeploy (do not import): the 2026-06-04 compliance-fix Plume stack (YieldIssuer `0xBe010733...`, YT `0x6eB381e9...`, YTMarket `0x6c1F0bF4...`); and before it, the pre-2026-06-03-fix stack (plain ERC-20 YT): YieldIssuer `0xf3186574...`, YT `0x470A4f73...`, YTMarket `0xfefa774d...`.
-
-### Sonic Testnet (deployed 2026-05-06 — first non-CCIP chain with full yield product)
-- YieldIssuer: `0x905142640A63B582E954C14e7Ed98a49E165D9Ef` (2026-06-16 per-period-snapshot redeploy, PR #36)
-- YT-MBT token: `0x02670162368541ae0098C5C6b76B60Ee0DD749Cf` (compliance-gated; `allowPolicy()` returns wMBT v2, which inlines the allowlist; per-period balance snapshot)
-- YTMarket: `0xFf586b23d45B4BE1677f19c1589A60321631069e` (2026-06-16 redeploy; allowlisted on wMBT v2 via `allowAddress`)
-
-> Superseded by the 2026-06-16 snapshot redeploy (do not import): the 2026-06-04 compliance-fix Sonic stack (YieldIssuer `0xe43355DF...`, YT `0x73362F49...`, YTMarket `0x3c407079...`); and before it, the pre-2026-06-03-fix stack (plain ERC-20 YT): YieldIssuer `0xc38e9d12...`, YT `0x0954Ca93...`, YTMarket `0x0ae06a1a...`.
-- RWA token (wMBT v2 — compliance-gated): `0x670c3a58435cc13e9edA059F4093F31CedEEF7F3`
-- TestUSDC: `0x43CC10a0bbEb70d8EFCb45714e0e0F4C49500c75`
 
 ## 6.7 Lending vaults
 

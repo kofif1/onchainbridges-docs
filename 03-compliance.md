@@ -15,7 +15,7 @@ A regulated RWA token cannot move between two non-KYC'd wallets. Period. This ap
 - Direct `transfer` and `transferFrom` calls
 - Mints — including bridge-driven mints from another chain
 - Marketplace trades — buyer and seller both checked
-- Lending and yield-stripping operations
+- Lending operations
 
 If any party in a transfer is not on the allowlist, the call reverts at the token level. There is no bypass at the marketplace level, no "trusted operator" exception, no time-locked grace period.
 
@@ -86,7 +86,7 @@ A wallet that's been KYC-approved can:
 - Receive the RWA token on any supported chain
 - Send to any other allowlisted wallet (peer-to-peer or via marketplace)
 - Bridge between chains without losing compliance
-- Use the token in the lending and yield products
+- Use the token in the lending products
 
 A wallet that has **not** been KYC-approved cannot interact with the token at all — receive, send, or hold it. Attempts revert. There is no greylist, no probationary period, no "small amount" exception.
 

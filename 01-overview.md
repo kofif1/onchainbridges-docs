@@ -22,7 +22,7 @@ A protocol layer that lives natively on every supported chain and:
 
 - **Issues a single token** (per asset) that's bridgeable to any supported chain via Chainlink CCIP and CRE
 - **Enforces compliance at every transfer** — mint, peer-to-peer, marketplace, even cross-chain delivery — via the Chainlink ACE allowlist + pause framework
-- **Provides off-the-shelf secondary markets** — yield stripping (PT/YT), lending vaults, marketplaces — all gated by the same compliance layer
+- **Provides off-the-shelf secondary markets**: lending vaults and marketplaces, all gated by the same compliance layer
 - **Onboards new chains in days** rather than weeks, with a uniform compliance posture from day one
 
 We are NOT an appchain. We do not ask issuers or their LPs to migrate to a new chain. We deploy where investors and capital already are, and connect those deployments through Chainlink's audited infrastructure.
@@ -31,7 +31,7 @@ We are NOT an appchain. We do not ask issuers or their LPs to migrate to a new c
 
 | Role | What we offer |
 |---|---|
-| **RWA issuers** | One contract suite, one compliance setup, distribution to every chain their LPs use. Plus secondary markets (yield + lending) out of the box. |
+| **RWA issuers** | One contract suite, one compliance setup, distribution to every chain their LPs use. Plus lending markets out of the box. |
 | **Chain partners** (Plume, Soneium, Astar, Sonic) | A reference RWA deployment with full ACE compliance: instant credibility for their RWA vertical. |
 | **DeFi protocols** | A KYC-clean RWA-backed asset they can list as collateral or quote markets in, without re-implementing compliance themselves. |
 | **Regulated investors** | One KYC, every chain. Wallet allowlisted on Sepolia? You can receive the asset on Sonic, trade it on Plume, post it as collateral on Amoy. |
@@ -42,7 +42,7 @@ Three things distinguish the platform from generic tokenization tooling:
 
 1. **Compliance-at-every-transfer.** Built on Chainlink ACE. Every transfer — including bridge mints on non-CCIP chains — checks the allowlist. We never have a chain where the token can move freely.
 2. **Native multi-chain tokens.** Built on Chainlink CCT. The token is the same canonical asset on every chain, not a bunch of "wrapped" derivatives.
-3. **Yield + lending out of the box.** PT/YT stripping and over-collateralized lending markets are part of the default deployment, not afterthoughts.
+3. **Lending out of the box.** Over-collateralized lending markets are part of the default deployment, not an afterthought.
 
 ## What you'll find in the rest of these docs
 
