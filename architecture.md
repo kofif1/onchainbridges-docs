@@ -13,9 +13,9 @@ Onchain Bridges is the compliance and interoperability layer for tokenized real-
 ## 1. System layers
 
 1. **Asset layer.** An RWA is issued once as a single canonical token (the reference asset is MBT, "Miami Beach Tower"). The same token exists natively on every supported chain.
-2. **Compliance layer.** Every mint, transfer, and cross-chain arrival is gated by a policy check (allowlist, jurisdiction, pause). A regulated asset can never land in an ineligible wallet.
+2. **Compliance layer.** Every mint, transfer, and cross-chain arrival is gated by a policy check. The enforced set is the KYC credential, the allowlist and the pause control, and it is scoped per chain. A transfer that fails a check reverts.
 3. **Transport layer.** Chainlink CCIP carries the token between CCIP-supported chains by burn-and-mint, with no wrapped copies. Chainlink CRE extends the same compliance-gated flow to non-CCIP chains.
-4. **DeFi layer.** Yield stripping (principal plus a tradeable Yield Token), a cross-chain lending marketplace, and a YT secondary market make the asset productive.
+4. **DeFi layer.** A cross-chain lending marketplace lets holders post the asset as collateral.
 5. **Account-abstraction layer.** A paymaster lets users pay fees and gas in a single token (TLPT).
 
 ## 2. Compliance-gated transfer flow
@@ -46,8 +46,6 @@ The RWA token's mint path carries a Chainlink Proof of Reserve hook: a mint reve
 
 ## 6. DeFi layer
 
-- **Yield stripping.** A `YieldIssuer` opens periods and mints a Yield Token (YT) proportional to each holder's balance. The YT is compliance-gated identically to the underlying asset.
-- **YT secondary market.** A `YTMarket` is a fixed-price market where holders list and buy YT, so the income stream trades independently of the principal.
 - **Lending marketplace.** Per-chain LendingVaults accept the RWA token as collateral and compete on terms; the best deal is surfaced in one interface.
 
 ## 7. Account abstraction
@@ -70,9 +68,6 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 | AllowPolicy | [`0x7858b6e699c381583A8A820F52AF051197B3DCD1`](https://sepolia.etherscan.io/address/0x7858b6e699c381583A8A820F52AF051197B3DCD1) |
 | PausePolicy | [`0x2038964Aea77Aa4A7cfB6a8A769e83FD119e634A`](https://sepolia.etherscan.io/address/0x2038964Aea77Aa4A7cfB6a8A769e83FD119e634A) |
 | Proof of Reserve feed | [`0xf88882929AA3ABcDf6A9B976AA33B4158C918c1C`](https://sepolia.etherscan.io/address/0xf88882929AA3ABcDf6A9B976AA33B4158C918c1C) |
-| YieldIssuer | [`0x34b8822b44ff287a2c7C6Fa8Fad60B0DC27AB841`](https://sepolia.etherscan.io/address/0x34b8822b44ff287a2c7C6Fa8Fad60B0DC27AB841) |
-| YT-MBT | [`0x7f939bc5e0db02910a461EE49127df881D042299`](https://sepolia.etherscan.io/address/0x7f939bc5e0db02910a461EE49127df881D042299) |
-| YTMarket | [`0xa25cC783b6CBb51CBCA57dC012315ef38212c94E`](https://sepolia.etherscan.io/address/0xa25cC783b6CBb51CBCA57dC012315ef38212c94E) |
 | TLPT (fee token) | [`0x1ceaaE761C87278acfbE33c89eC523B46FAbCcF3`](https://sepolia.etherscan.io/address/0x1ceaaE761C87278acfbE33c89eC523B46FAbCcF3) |
 | TLPTPaymaster v2.1 | [`0xc4F407562b446f024fF9bDdDB390D8a499552c82`](https://sepolia.etherscan.io/address/0xc4F407562b446f024fF9bDdDB390D8a499552c82) |
 
@@ -85,9 +80,6 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 | PolicyEngine | [`0xfefA774dB9A52c72EC8f0621046836CbA63d2BA6`](https://amoy.polygonscan.com/address/0xfefA774dB9A52c72EC8f0621046836CbA63d2BA6) |
 | AllowPolicy | [`0x5fe9d900945b60B3BEcEDe4382BEd2653EC99D40`](https://amoy.polygonscan.com/address/0x5fe9d900945b60B3BEcEDe4382BEd2653EC99D40) |
 | PausePolicy | [`0x8c57Abe7Cf1330346EB760EDaEE380A66D3f42f7`](https://amoy.polygonscan.com/address/0x8c57Abe7Cf1330346EB760EDaEE380A66D3f42f7) |
-| YieldIssuer | [`0x62BD210F9e7B4889066Bd7bc360557c666af44F5`](https://amoy.polygonscan.com/address/0x62BD210F9e7B4889066Bd7bc360557c666af44F5) |
-| YT-MBT | [`0xC4dE838dF59AEB7a9Ad099A34EE6F3E1B19D1aeC`](https://amoy.polygonscan.com/address/0xC4dE838dF59AEB7a9Ad099A34EE6F3E1B19D1aeC) |
-| YTMarket | [`0xa701147b7C1a511790BE503675Df1F8B09caBAa9`](https://amoy.polygonscan.com/address/0xa701147b7C1a511790BE503675Df1F8B09caBAa9) |
 | StellarLockVault (Stellar bridge endpoint) | [`0xA19DB9d6944ee5181233A3dC02bdB7dffB779C7D`](https://amoy.polygonscan.com/address/0xA19DB9d6944ee5181233A3dC02bdB7dffB779C7D) |
 | StellarBridgeOutbox (Stellar bridge endpoint) | [`0xbF4158fb88567c2b6a337993Eb0D19CfaC56FB20`](https://amoy.polygonscan.com/address/0xbF4158fb88567c2b6a337993Eb0D19CfaC56FB20) |
 
@@ -99,9 +91,6 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 | PolicyEngine | [`0x045A3c91E4742aAeb9b3E0E5d87A0b94B801c6D3`](https://testnet-explorer.plume.org/address/0x045A3c91E4742aAeb9b3E0E5d87A0b94B801c6D3) |
 | AllowPolicy | [`0x2aedDb48a3b6028244ed31C0fdDEB2B72Fce3bE1`](https://testnet-explorer.plume.org/address/0x2aedDb48a3b6028244ed31C0fdDEB2B72Fce3bE1) |
 | PausePolicy | [`0x5D273AAE0547FD33c0C5247487a160cd26f38FE4`](https://testnet-explorer.plume.org/address/0x5D273AAE0547FD33c0C5247487a160cd26f38FE4) |
-| YieldIssuer | [`0xBe0107334394e9b8ccBE18e9D39e3c3C1f302B00`](https://testnet-explorer.plume.org/address/0xBe0107334394e9b8ccBE18e9D39e3c3C1f302B00) |
-| YT-MBT | [`0x6eB381e96d39a2393652deD532f304D297602EAe`](https://testnet-explorer.plume.org/address/0x6eB381e96d39a2393652deD532f304D297602EAe) |
-| YTMarket | [`0x6c1F0bF40De396292310440ABE8f89996beA0F3E`](https://testnet-explorer.plume.org/address/0x6c1F0bF40De396292310440ABE8f89996beA0F3E) |
 
 ### Astar Shibuya (chainId 81) - explorer: https://shibuya.blockscout.com
 
@@ -119,9 +108,6 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 | WrappedMBT v2 (compliance-gated) | [`0x670c3a58435cc13e9edA059F4093F31CedEEF7F3`](https://testnet.sonicscan.org/address/0x670c3a58435cc13e9edA059F4093F31CedEEF7F3) |
 | CREBridgeConsumer v2 | [`0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6`](https://testnet.sonicscan.org/address/0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6) |
 | Nova Finance LendingVault | [`0x49f1aa7C252183E79D4944c54698a335Ed65C150`](https://testnet.sonicscan.org/address/0x49f1aa7C252183E79D4944c54698a335Ed65C150) |
-| YieldIssuer | [`0xe43355DFBfaa167B76591432c1d033a454B87AD3`](https://testnet.sonicscan.org/address/0xe43355DFBfaa167B76591432c1d033a454B87AD3) |
-| YT-MBT | [`0x73362F49F5dB3f1253D73a4f017f2324b6e113e0`](https://testnet.sonicscan.org/address/0x73362F49F5dB3f1253D73a4f017f2324b6e113e0) |
-| YTMarket | [`0x3c4070794aa047decCdb42bD9BbE37a4310fa9b9`](https://testnet.sonicscan.org/address/0x3c4070794aa047decCdb42bD9BbE37a4310fa9b9) |
 
 ### Solana Devnet (non-EVM, compliance enforced via SPL Token-2022 transfer hook) - explorer: https://explorer.solana.com (cluster=devnet)
 
@@ -133,16 +119,13 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 
 ### Stellar Testnet (Soroban, non-EVM) - explorer: https://stellar.expert/explorer/testnet
 
-A full compliant RWA stack runs natively on Soroban: a compliance-gated token, a lock-and-mint bridge from Polygon Amoy with Chainlink CRE DON-verified attestation, native lending, yield stripping, and a YT secondary market. Compliance (allowlist plus pause) is enforced in the Soroban token on every transfer. This stack is live on the public testnet dApp at https://rwa-testnet.onchainbridges.com.
+A full compliant RWA stack runs natively on Soroban: a compliance-gated token, a lock-and-mint bridge from Polygon Amoy with Chainlink CRE DON-verified attestation, and native lending. Compliance (allowlist plus pause) is enforced in the Soroban token on every transfer. This stack is live on the public testnet dApp at https://rwa-testnet.onchainbridges.com.
 
 | Contract | Address |
 |---|---|
 | sMBT (compliance-gated RWA token) | [`CCYOGL2C7OKWDEN7XTIVLS6GFGOUEQQHER36YV5BHLPDCJJM3FIO3TD5`](https://stellar.expert/explorer/testnet/contract/CCYOGL2C7OKWDEN7XTIVLS6GFGOUEQQHER36YV5BHLPDCJJM3FIO3TD5) |
-| sUSDC (loan and yield currency) | [`CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO`](https://stellar.expert/explorer/testnet/contract/CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO) |
+| sUSDC (loan currency) | [`CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO`](https://stellar.expert/explorer/testnet/contract/CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO) |
 | LendingVault "Polaris" (borrow sUSDC against sMBT) | [`CB7WBLOFLDFJYKCYFOJYICDW3PUJ66IWIGJMP3P7MDDSXNGY5ON3JINS`](https://stellar.expert/explorer/testnet/contract/CB7WBLOFLDFJYKCYFOJYICDW3PUJ66IWIGJMP3P7MDDSXNGY5ON3JINS) |
-| YieldIssuer | [`CDOHKXC63NMVZ6BRK3MYCCEK5LQCUB227YI53EEPYMBGUZRONP6PCAFG`](https://stellar.expert/explorer/testnet/contract/CDOHKXC63NMVZ6BRK3MYCCEK5LQCUB227YI53EEPYMBGUZRONP6PCAFG) |
-| YT (compliance-gated yield token) | [`CBTRU54726K5WJV6VMIBFY4WW4SHRJF6DEQB7KKAWF4HAXECAVBISPVC`](https://stellar.expert/explorer/testnet/contract/CBTRU54726K5WJV6VMIBFY4WW4SHRJF6DEQB7KKAWF4HAXECAVBISPVC) |
-| YTMarket (fixed-price YT secondary market) | [`CCXKKM7IVCDAYNI2FCN6DILBTDY37ZVUJB6TUWJEF4TS3IBCMY6QDFKD`](https://stellar.expert/explorer/testnet/contract/CCXKKM7IVCDAYNI2FCN6DILBTDY37ZVUJB6TUWJEF4TS3IBCMY6QDFKD) |
 
 The EVM endpoints of the Stellar bridge are the StellarLockVault and StellarBridgeOutbox on Polygon Amoy, listed in the Amoy table above. The bridge is non-CCIP (lock-and-mint via Chainlink CRE plus keepers) and converges to CCIP burn-and-mint with no application change if Chainlink adds Stellar to CCIP.
 

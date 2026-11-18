@@ -17,7 +17,6 @@ We built a full compliant-RWA stack natively on Soroban to prove the end-to-end 
 - **sMBT** - a compliance-gated RWA token (SEP-41), with allowlist plus pause enforced on every transfer (a Soroban-native equivalent of our EVM compliance engine). Reference asset: "Miami Beach Tower."
 - **EVM to Stellar bridge** - a lock-and-mint bridge that moves the real-world-asset token from Polygon (MBT) to Stellar (sMBT), with Chainlink CRE providing DON-verified attestation in both directions. This is a non-CCIP (Category C) lane; it converges to Chainlink CCIP burn-and-mint, with no application change, if and when CCIP-Stellar ships.
 - **Native lending** - a Soroban LendingVault ("Polaris") where sMBT is borrowed against in sUSDC.
-- **Yield stripping** - a Soroban YieldIssuer mints a tradeable Yield Token (YT) from the RWA's income, and a YTMarket provides a fixed-price secondary market for it. The YT is compliance-gated identically to sMBT.
 - **Wallet** - the dApp connects to Stellar and signs Soroban transactions through the **Freighter** wallet (`@stellar/freighter-api`).
 
 ### Deployed Soroban contracts (Stellar testnet)
@@ -25,11 +24,8 @@ We built a full compliant-RWA stack natively on Soroban to prove the end-to-end 
 | Contract | Contract ID |
 |---|---|
 | sMBT (compliance-gated RWA token) | [`CCYOGL2C7OKWDEN7XTIVLS6GFGOUEQQHER36YV5BHLPDCJJM3FIO3TD5`](https://stellar.expert/explorer/testnet/contract/CCYOGL2C7OKWDEN7XTIVLS6GFGOUEQQHER36YV5BHLPDCJJM3FIO3TD5) |
-| sUSDC (loan and yield currency) | [`CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO`](https://stellar.expert/explorer/testnet/contract/CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO) |
+| sUSDC (loan currency) | [`CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO`](https://stellar.expert/explorer/testnet/contract/CAS5G444JM4CDTX33ALSMAEJDMKMNKKUIHC3PV7N24KDRENRUVA4DCPO) |
 | LendingVault "Polaris" | [`CB7WBLOFLDFJYKCYFOJYICDW3PUJ66IWIGJMP3P7MDDSXNGY5ON3JINS`](https://stellar.expert/explorer/testnet/contract/CB7WBLOFLDFJYKCYFOJYICDW3PUJ66IWIGJMP3P7MDDSXNGY5ON3JINS) |
-| YieldIssuer | [`CDOHKXC63NMVZ6BRK3MYCCEK5LQCUB227YI53EEPYMBGUZRONP6PCAFG`](https://stellar.expert/explorer/testnet/contract/CDOHKXC63NMVZ6BRK3MYCCEK5LQCUB227YI53EEPYMBGUZRONP6PCAFG) |
-| YT (compliance-gated yield token) | [`CBTRU54726K5WJV6VMIBFY4WW4SHRJF6DEQB7KKAWF4HAXECAVBISPVC`](https://stellar.expert/explorer/testnet/contract/CBTRU54726K5WJV6VMIBFY4WW4SHRJF6DEQB7KKAWF4HAXECAVBISPVC) |
-| YTMarket (fixed-price YT secondary market) | [`CCXKKM7IVCDAYNI2FCN6DILBTDY37ZVUJB6TUWJEF4TS3IBCMY6QDFKD`](https://stellar.expert/explorer/testnet/contract/CCXKKM7IVCDAYNI2FCN6DILBTDY37ZVUJB6TUWJEF4TS3IBCMY6QDFKD) |
 
 ### EVM endpoints of the Stellar bridge (Polygon Amoy, chainId 80002, explorer https://amoy.polygonscan.com)
 
@@ -63,7 +59,7 @@ This is a deliberately focused, realistic scope: one production-grade integratio
 
 1. A real-world-asset token issued on Polygon (MBT) bridges to Stellar as sMBT via Chainlink CRE, compliance enforced on arrival.
 2. On Stellar, sMBT is a compliance-gated SEP-41 token; every transfer passes an allowlist and pause check.
-3. Holders borrow against sMBT through Blend v2 lending pools, and strip and trade the asset's yield, all gated by the same compliance.
+3. Holders borrow against sMBT through Blend v2 lending pools, all gated by the same compliance.
 4. Users connect and sign through Freighter.
 
 The result for Stellar: compliant real-world assets, and the users and liquidity that follow them, are drawn into the Stellar DeFi ecosystem through native building blocks, with compliance enforced on every transfer, and without Stellar or its DeFi protocols having to build RWA compliance themselves.
