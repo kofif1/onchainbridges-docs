@@ -18,7 +18,6 @@ A complete deployment of:
 - The asset's RWA token with cross-chain bridging to any other supported chain
 - Compliance gating identical to every other chain in the protocol (no second-class chains)
 - Lending vault accepting the RWA token as collateral
-- Yield stripping (PT/YT) and YT marketplace
 - Listing in the dApp's chain selector — one-click bridging from any other chain
 
 ### What we need from you
@@ -36,7 +35,7 @@ A complete deployment of:
 2. **Compliance stack deploy** — either full Chainlink ACE (PolicyEngine + AllowPolicy + PausePolicy proxies) or the equivalent inlined in our `WrappedMBT v2` pattern. Decision criteria:
    - If your chain is on CCIP → full ACE, native MBT, BurnMintTokenPool
    - If non-CCIP → inlined `WrappedMBT v2` + CRE workflow targeting the chain
-3. **Servicing contracts** — LendingVault + YieldIssuer + YT marketplace deployed and wired to the compliance stack
+3. **Servicing contracts**: LendingVault deployed and wired to the compliance stack
 4. **Bridge wiring** — either (a) CCIP lane registration (Chainlink does this on their side; we provide token + pool addresses), or (b) CRE workflow deployment with your chain in `project.yaml` rpcs
 5. **Allowlist seeding** — bootstrap addresses (deployer, our protocol contracts, your test wallets, partner wallets)
 6. **dApp listing** — add your chain to the selector, run `webapp/pre-demo-check.ts` until all green

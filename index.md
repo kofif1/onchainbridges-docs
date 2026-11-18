@@ -18,10 +18,12 @@ and Proof of Reserve). Live testnet dApp: https://rwa-testnet.onchainbridges.com
 6. [Contract Reference](06-contracts.md), live testnet addresses across supported chains
 7. [Security Model](07-security.md), threat model, key custody, upgrade paths
 
-## Security audit
-- [Security Review](audits/SECURITY-REVIEW-2026-06-17.md), independent source-based audit
-  (Foundry forge-lint + Cyfrin Aderyn + solhint + cargo-audit): 0 Critical/High/Medium across all
-  live networks (EVM + Solana + Stellar).
+## Security review
+- [Security Review](audits/SECURITY-REVIEW-2026-06-17.md), a static-analysis review of our own
+  source (Foundry forge-lint + Cyfrin Aderyn + solhint + cargo-audit), dated 2026-06-17: no
+  Critical, High or Medium findings in the contracts it covers. It is **not** an independent
+  third-party audit, and it does not cover contracts deployed after its date. No formal audit has
+  been commissioned; see [Security Model](07-security.md).
 - [Verification and Audit Ledger](CONTRACT-VERIFICATION-AUDIT-LEDGER.md), every contract, every
   chain, with block-explorer links.
 
