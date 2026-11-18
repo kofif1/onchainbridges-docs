@@ -77,12 +77,11 @@ The WASM workflow that powers the Amoy → Sonic bridge can be re-deployed to th
 
 ## 7.5 Known limitations & open items
 
-1. **Sepolia <-> Shibuya CCIP lane currently dormant** - Plume's gas-budget issue was resolved by Chainlink on 2026-05-14 and Sepolia <-> Plume bridges are now delivering end-to-end. Shibuya, however, shows zero OffRamp events on-chain over the last 33 hours, indicating the DON is not processing the lane regardless of gas budget. Awaiting Chainlink confirmation of lane status (active / decommissioned / migrating to v1.6).
+1. **Sepolia <-> Shibuya CCIP lane dormant as of 2026-06-18** - Plume's gas-budget issue was resolved by Chainlink on 2026-05-14 and Sepolia <-> Plume bridges were delivering end-to-end. Shibuya showed zero OffRamp events on-chain over the preceding 33 hours, indicating the DON was not processing the lane regardless of gas budget. Lane status with Chainlink (active / decommissioned / migrating to v1.6) was unconfirmed at that date and has not been re-checked for this document.
 2. **Sonic Testnet RPC has no CORS** — dApp can't read Sonic state from the browser, so destination-TX detection uses a deterministic Sonicscan deep-link instead of live polling. See RUNBOOK.md gotcha #3 (internal ops, not public).
 3. **Sonic outbound bridging is not deployed** — bridges are one-way (in only) for Sonic until a return-side CRE workflow is built.
 4. **MetaMask Amoy gas glitch** — patched in dApp via explicit `maxFeePerGas` override.
-5. **CI is currently red** — yield + paymaster precision tests need updating after the YieldIssuer snapshot fix. Doesn't affect production state, but blocks branch merges.
-6. **No formal audit yet** — testnet deployment uses Chainlink-audited components (CCIP, CRE, ACE) plus our thin layer (RWAToken, WrappedMBT v2, LockVault, CREBridgeConsumer, YieldIssuer, LendingVault, YTMarket). Mainnet ship requires audit of the thin layer.
+5. **No formal audit yet** - testnet deployment uses Chainlink-audited components (CCIP, CRE, ACE) plus our thin layer (RWAToken, WrappedMBT v2, LockVault, CREBridgeConsumer, YieldIssuer, LendingVault, YTMarket). Mainnet ship requires audit of the thin layer.
 
 ## 7.6 Reporting a vulnerability
 
