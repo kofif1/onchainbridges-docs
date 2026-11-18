@@ -8,9 +8,13 @@ title: "Contract Reference"
 
 Live testnet addresses across every supported chain. Authoritative source: `webapp/src/config/chains.ts` (this document is a snapshot).
 
-> Last updated and verified: 2026-06-05. §6.1-6.5 (EVM chains) verified against the webapp config files, all addresses match. §6.8 (Solana Devnet): Phase B is complete; C-lite trust-minimized recipient-claim path verified end-to-end on Devnet (2026-05-20), exposed in the dApp as of 2026-06-05 via the V1 C-lite message shape, with the V2 atomic path preserved in code (svmCcip.ts `buildBridgeMessageV2`) for when Chainlink unblocks the offramp heap-OOM. §6.10 (Account Abstraction contracts) added 2026-05-17.
+> **Check any address here against `webapp/src/config/chains.ts` before you build on it.** That file
+> is the source of truth; this page is a snapshot of it and can lag.
 >
-> This document is the canonical contract registry. Per CLAUDE.md invariant 5, any contract added, removed, redeployed, or deprecated on any chain is reflected here in the same commit.
+> Partially re-verified 2026-11-18: the Sonic Testnet token row (§6.5) was read on-chain and
+> corrected. **No other section was re-verified on that date.** Earlier notes on this page recorded
+> work done up to 2026-06-05, including the Solana Devnet C-lite path and the Account Abstraction
+> additions of 2026-05-17.
 
 ## 6.1 Sepolia (chainId 11155111)
 
@@ -74,7 +78,7 @@ LINK token: `0xe74037112db8807B3B4B3895F5790e5bc1866a29`
 
 | Contract | Address |
 |---|---|
-| **WrappedMBT v2** (compliance-gated) | `0x670c3a58435cc13e9edA059F4093F31CedEEF7F3` |
+| **WrappedMBT v3** (compliance-gated) | `0x0259ae85183975f83297847e144bc4e1ecf908bc` |
 | **CREBridgeConsumer v2** | `0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6` |
 | **KeystoneForwarder** (Chainlink-hosted) | `0x98B8335d29Aca40840Ed8426dA1A0aAa8677d8D1` |
 | **Nova Finance LendingVault v2** (wMBT v2 collateral) | `0x49f1aa7C252183E79D4944c54698a335Ed65C150` |

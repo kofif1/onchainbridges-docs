@@ -13,7 +13,7 @@ Onchain Bridges is the compliance and interoperability layer for tokenized real-
 ## 1. System layers
 
 1. **Asset layer.** An RWA is issued once as a single canonical token (the reference asset is MBT, "Miami Beach Tower"). The same token exists natively on every supported chain.
-2. **Compliance layer.** Every mint, transfer, and cross-chain arrival is gated by a policy check. The enforced set is the KYC credential, the allowlist and the pause control, and it is scoped per chain. A transfer that fails a check reverts.
+2. **Compliance layer.** Every mint, transfer, and cross-chain arrival is gated by a policy check. The enforced set includes the KYC credential, the allowlist and the pause control, and it is scoped per chain. A transfer that fails a check reverts.
 3. **Transport layer.** Chainlink CCIP carries the token between CCIP-supported chains by burn-and-mint, with no wrapped copies. Chainlink CRE extends the same compliance-gated flow to non-CCIP chains.
 4. **DeFi layer.** A cross-chain lending marketplace lets holders post the asset as collateral.
 5. **Account-abstraction layer.** A paymaster lets users pay fees and gas in a single token (TLPT).
@@ -105,7 +105,7 @@ All addresses are EIP-55 checksummed and were verified with `cast to-checksum`. 
 
 | Contract | Address |
 |---|---|
-| WrappedMBT v2 (compliance-gated) | [`0x670c3a58435cc13e9edA059F4093F31CedEEF7F3`](https://testnet.sonicscan.org/address/0x670c3a58435cc13e9edA059F4093F31CedEEF7F3) |
+| WrappedMBT v3 (compliance-gated) | [`0x0259ae85183975f83297847e144bC4E1eCf908Bc`](https://testnet.sonicscan.org/address/0x0259ae85183975f83297847e144bC4E1eCf908Bc) |
 | CREBridgeConsumer v2 | [`0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6`](https://testnet.sonicscan.org/address/0xA56efb5A85A2C9c2e07478Ce257CEdEcEE9cA7f6) |
 | Nova Finance LendingVault | [`0x49f1aa7C252183E79D4944c54698a335Ed65C150`](https://testnet.sonicscan.org/address/0x49f1aa7C252183E79D4944c54698a335Ed65C150) |
 
