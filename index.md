@@ -18,6 +18,10 @@ and Proof of Reserve). Live testnet dApp: https://rwa-testnet.onchainbridges.com
 6. [Contract Reference](06-contracts.md), live testnet addresses across supported chains
 7. [Security Model](07-security.md), threat model, key custody, upgrade paths
 
+## Chain integrations
+- [Canton Integration](canton.md), how a KYC verification completed on an EVM chain is recognised
+  for a Canton party the holder has proved control of (Canton TestNet, demo-grade, not audited)
+
 ## Security review
 - [Security Review](audits/SECURITY-REVIEW-2026-06-17.md), a static-analysis review of our own
   source (Foundry forge-lint + Cyfrin Aderyn + solhint + cargo-audit), dated 2026-06-17: no
