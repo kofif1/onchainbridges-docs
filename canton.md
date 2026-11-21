@@ -70,5 +70,3 @@ mechanism.
 
 The flow runs in the public testnet dApp at https://rwa-testnet.onchainbridges.com, with the Canton
 party proof on the signer page named in section 2.
-
-A recorded walkthrough of this flow on TestNet: https://youtu.be/4eC7cMQ1Wys
