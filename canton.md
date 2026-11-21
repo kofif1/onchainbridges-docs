@@ -73,7 +73,7 @@ length.
 
 | Contract | Address |
 |---|---|
-| MBT (RWATokenCCT) | [`0x3953a90Ad44Dc771E7A1a1Fc4608Bb89f13cA068`](https://sepolia.etherscan.io/address/0x3953a90Ad44Dc771E7A1a1Fc4608Bb89f13cA068) |
+| MBT (RWATokenCCT) | [`0x044951AB857C7e23b5570D4ca11466ACACF861A8`](https://sepolia.etherscan.io/address/0x044951AB857C7e23b5570D4ca11466ACACF861A8) |
 | MBT AllowPolicy | [`0x7858b6e699c381583A8A820F52AF051197B3DCD1`](https://sepolia.etherscan.io/address/0x7858b6e699c381583A8A820F52AF051197B3DCD1) |
 
 Both are EIP-55 checksummed. The full cross-chain registry is in the
