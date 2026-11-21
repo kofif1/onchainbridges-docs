@@ -5,7 +5,7 @@ title: "Canton Integration"
 # Onchain Bridges - Canton Integration
 
 **Status:** this runs on **Canton TestNet** and is exercised through the public testnet dApp at
-https://rwa-testnet.onchainbridges.com. It is demo-grade and **not audited**. No part of it runs on
+[https://rwa-testnet.onchainbridges.com](https://rwa-testnet.onchainbridges.com). It is demo-grade and **not audited**. No part of it runs on
 Canton MainNet.
 
 <div data-video-id="4eC7cMQ1Wys" style="max-width:720px;margin:28px 0">
@@ -42,7 +42,7 @@ it, and it has to do so without a public ledger to read.
 - **Allowlist screening on the instrument.** The instrument carries a list of admitted parties. A
   transfer to a party that is not admitted is refused.
 - **A browser signer.** A Canton party can be created in the holder's own browser at
-  `canton-signer.onchainbridges.com`. The key stays in the holder's browser, which signs.
+  [canton-signer.onchainbridges.com](https://canton-signer.onchainbridges.com). The key stays in the holder's browser, which signs.
 - **KYC recognition.** A credential verified on an EVM chain is recognised for a Canton party the
   holder has proved control of, so the holder does not repeat the verification. Section 4 covers it.
 
@@ -115,7 +115,8 @@ the chain that holds it (the Sepolia testnet), rather than trusting a flag writt
 
 ### The signing key
 
-A Canton party can be created on our signer page, in the holder's own browser. That page states,
+A Canton party can be created on our [signer page](https://canton-signer.onchainbridges.com), in
+the holder's own browser. That page states,
 verbatim:
 
 > "Your signing key is created in this browser and is never sent to any server. It leaves the
@@ -159,5 +160,6 @@ other arrangements, key custody is whatever those arrangements provide.
 
 ## 7. Where to see it
 
-The flow runs in the public testnet dApp at https://rwa-testnet.onchainbridges.com, with the Canton
+The flow runs in the public testnet dApp at
+[https://rwa-testnet.onchainbridges.com](https://rwa-testnet.onchainbridges.com), with the Canton
 party proof on the signer page named in section 4.
