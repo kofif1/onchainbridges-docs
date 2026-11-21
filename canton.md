@@ -8,6 +8,19 @@ title: "Canton Integration"
 https://rwa-testnet.onchainbridges.com. It is demo-grade and **not audited**. No part of it runs on
 Canton MainNet.
 
+<div data-video-id="4eC7cMQ1Wys" style="max-width:720px;margin:28px 0">
+  <button type="button" style="border:0;padding:0;background:#000;cursor:pointer;display:block;width:100%;position:relative;border-radius:12px;overflow:hidden">
+    <img src="assets/canton-demo-thumbnail.png" style="display:block;width:100%;height:auto"
+         alt="A recorded walkthrough of this flow on TestNet (video).">
+    <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92px;height:64px;border-radius:14px;background:rgba(220,0,0,.92);display:flex;align-items:center;justify-content:center">
+      <span style="display:block;width:0;height:0;border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:6px"></span>
+    </span>
+  </button>
+</div>
+<script src="assets/video-facade.js"></script>
+
+Pressing play loads the video from YouTube.
+
 Onchain Bridges is a compliance and interoperability layer for tokenized real-world assets (RWAs).
 **This page is Canton-specific**, and it describes one capability: how a KYC verification a holder
 has already completed on an EVM chain is recognised for a Canton party that holder has proved
@@ -71,14 +84,3 @@ mechanism.
 The flow runs in the public testnet dApp at https://rwa-testnet.onchainbridges.com, with the Canton
 party proof on the signer page named in section 2.
 
-<div data-video-id="4eC7cMQ1Wys">
-  <button type="button" style="border:0;background:none;padding:0;cursor:pointer;display:block;width:100%;max-width:640px">
-    <img src="assets/canton-demo-thumbnail.png" style="display:block;width:100%;height:auto;border-radius:10px"
-         alt="A recorded walkthrough of this flow on TestNet (video).">
-  </button>
-</div>
-<script src="assets/video-facade.js"></script>
-
-Pressing play loads the video from YouTube.
-
-A recorded walkthrough of this flow on TestNet: https://youtu.be/4eC7cMQ1Wys
