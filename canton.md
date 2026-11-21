@@ -62,47 +62,11 @@ request**, by reading the holder's verification status on the chain that holds i
 testnet).
 
 That status read is the only part of this that is current by construction. It is not a revocation
-mechanism, and section 5 says what it does not reach.
+mechanism.
 
 ---
 
-## 5. Limits, stated plainly
-
-These are real limits of the integration as it stands, not caveats about future work.
-
-- **Revocation does not propagate across chains, and it is not automatic.** Withdrawing a
-  verification at the identity provider does not, by itself, reach any chain.
-- **A withdrawn holder is not removed by the withdrawal.** The status read in section 4 will report
-  them as not currently verified, but two other things persist until a person changes them by hand:
-  the service's own list of parties it will serve is **grant-only**, with no re-check and no removal
-  path in the code, and admission to an asset's allowlist is a **manual operation**. Neither lapses
-  on its own.
-- **Not every Canton party can use this.** The service maintains its own list of parties it will
-  serve, and a party outside that list is refused even if the holder behind it is verified.
-- **The link and the verification are not written to the Canton ledger.** They are held off the
-  ledger, so nothing on Canton can read the link directly. This is not a claim that Canton holds no
-  record of the holder: an asset's allowlist is an on-ledger list of admitted parties, and a Canton
-  party id carries a holder-chosen name fragment that is visible in network topology.
-- **One party per link.** What is recognised is the specific Canton party the holder proved control
-  of. It does not extend to other parties the same holder may control.
-- **Custody of the asset follows a registrar model.** The party that administers an asset in this
-  integration holds authority over holdings of it. Nothing on this page should be read as a
-  statement that only the holder can affect their holding.
-- **TestNet only, and not audited.** See the status note at the top of this page.
-
----
-
-## 6. What this is not
-
-- It is **not** a credential on Canton. No credential is issued on, or held by, the Canton ledger.
-- It is **not** a claim that the holder is verified under any particular jurisdiction's rules. What
-  is recognised is that our KYC journey was completed, nothing more.
-- It is **not** an onboarding or admission decision made by Canton or by any Canton application.
-  Each application decides for itself what to do with the recognition.
-
----
-
-## 7. Where to see it
+## 5. Where to see it
 
 The flow runs in the public testnet dApp at https://rwa-testnet.onchainbridges.com, with the Canton
 party proof on the signer page named in section 2.
