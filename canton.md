@@ -48,9 +48,10 @@ verbatim:
 > "Your signing key is created in this browser and is never sent to any server. It leaves the
 > browser only inside your backup file, encrypted with your passphrase - keep that file safe."
 
-**Scope:** that describes a key created on the signer page. It does not describe a Canton party
-hosted on a participant node by someone else, where the key custody is whatever that operator
-provides.
+**Scope:** that describes a key created on the signer page. It does not describe any Canton party
+that was not created on the signer page, including parties hosted on a participant node, ours or
+another operator's; key custody for such parties is whatever their own creation and hosting
+arrangements provide.
 
 ---
 
